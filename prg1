@@ -1,0 +1,25 @@
+import numpy as np
+
+class Neuron:
+    def __init__(self, num_inputs, activation_function='sigmoid'):
+        self.weights = np.random.rand(num_inputs)
+        self.bias = np.random.rand(1)
+        self.activation_function = self.sigmoid if activation_function == 'sigmoid' else self.step
+
+    def sigmoid(self, x):
+        return 1 / (1 + np.exp(-x))
+
+    def step(self, x):
+        return 1 if x >= 0 else 0
+
+    def forward(self, inputs):
+        return self.activation_function(np.dot(inputs, self.weights) + self.bias)
+
+num_inputs = int(input("enter number of inputs"))
+neuron = Neuron(num_inputs)
+inputs = np.array([float(input(f"Enter input{i+1}:")) for i in range(num_inputs)])
+output = neuron.forward(inputs)
+
+print("Input values:", inputs)
+print("Weights: " , neuron.weights)
+print("Output:", output)
